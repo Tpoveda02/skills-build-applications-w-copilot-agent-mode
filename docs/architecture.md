@@ -28,13 +28,13 @@ OctoFit Tracker is a three-tier application for a school fitness program. The st
 
 ## Implementation decisions
 
-- Presentation tier: Keep the page components responsible for presentation and loading, empty, success, and error states. Use the shared API client for relative `/api` requests; do not duplicate URL construction or business rules in the browser.
-- Logic tier: Keep route handlers thin and implement validation and business behavior in service functions. Return deliberate 4xx responses for invalid input or missing records, and keep the API unauthenticated for this exercise.
-- Data tier: Enforce required fields and sensible defaults in Mongoose schemas. Keep seed records stable and idempotent with upserts; do not clear application data, and remove a seeded user's membership from a previous team when that fixture moves.
-- Activity tracking: Validate activity type and positive minutes, then validate that both supplied IDs are well-formed and refer to existing records. Persist the user's and team's IDs, compute points server-side using the existing one-point-per-minute seed convention, and set `occurredAt` on creation.
-- Team management: Require a non-empty name, preserve the submitted name and mascot, and default omitted members to an empty array. Validate supplied member IDs before creating the team.
-- Leaderboard: Aggregate activity points by team, include teams with no activity at zero points, sort descending by total, and assign 1-based ranks.
-- Workout suggestions: Find the user by email and use their goal and recent activity to prioritize matching existing workouts. Include an explanatory reason with each recommendation and return a deliberate 4xx when no user matches.
+- Presentation tier decision: Keep the page components responsible for presentation and loading, empty, success, and error states. Use the shared API client for relative `/api` requests; do not duplicate URL construction or business rules in the browser.
+- Logic tier decision: Keep route handlers thin and implement validation and business behavior in service functions. Return deliberate 4xx responses for invalid input or missing records, and keep the API unauthenticated for this exercise.
+- Data tier decision: Enforce required fields and sensible defaults in Mongoose schemas. Keep seed records stable and idempotent with upserts; do not clear application data, and remove a seeded user's membership from a previous team when that fixture moves.
+- Activity tracking approach: Validate activity type and positive minutes, then validate that both supplied IDs are well-formed and refer to existing records. Persist the user's and team's IDs, compute points server-side using the existing one-point-per-minute seed convention, and set `occurredAt` on creation.
+- Team management approach: Require a non-empty name, preserve the submitted name and mascot, and default omitted members to an empty array. Validate supplied member IDs before creating the team.
+- Leaderboard approach: Aggregate activity points by team, include teams with no activity at zero points, sort descending by total, and assign 1-based ranks.
+- Workout suggestions approach: Find the user by email and use their goal and recent activity to prioritize matching existing workouts. Include an explanatory reason with each recommendation and return a deliberate 4xx when no user matches.
 
 ## Test plan
 
